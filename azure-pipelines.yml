@@ -39,5 +39,5 @@ steps:
     ConnectionType: 'AzureRM'
     azureSubscription: 'Azure subscription 1(4fa89b6b-81d0-4523-a547-0e5abce06c0f)'
     appType: 'webApp'
-    WebAppName: 'webapidemo9111'
-    packageForLinux: '$(System.ArtifactStagingDirectory)/**/*.zip'
+    WebAppName: 'webapidemo9119'
+    packageForLinux: '$(Pipeline.Workspace)/drop/WebApp.zip'
