@@ -40,4 +40,4 @@ steps:
     azureSubscription: 'Azure subscription 1(4fa89b6b-81d0-4523-a547-0e5abce06c0f)'
     appType: 'webApp'
     WebAppName: 'webapidemo9119'
-    packageForLinux: '$(Pipeline.Workspace)/drop/WebApp.zip'
+    packageForLinux: '$(Pipeline.Workspace)/drop/webapidemo9119.zip'
