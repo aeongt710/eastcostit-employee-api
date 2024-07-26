@@ -47,3 +47,10 @@ steps:
     command: 'publish'
     publishWebProjects: true
     arguments: '--configuration $(BuildConfiguration) --output $(build.artifactstagingdirectory)'
+- task: AzureRmWebAppDeployment@4
+  inputs:
+    ConnectionType: 'AzureRM'
+    azureSubscription: 'Azure subscription 1(4fa89b6b-81d0-4523-a547-0e5abce06c0f)'
+    appType: 'webApp'
+    WebAppName: 'webapidemo9111'
+    packageForLinux: '$(System.DefaultWorkingDirectory)/drop/WebApp.zip'
