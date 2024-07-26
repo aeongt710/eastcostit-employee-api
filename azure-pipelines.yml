@@ -47,9 +47,3 @@ steps:
     command: 'publish'
     publishWebProjects: true
     arguments: '--configuration $(BuildConfiguration) --output $(build.artifactstagingdirectory)'
-- task: AzureRmWebAppDeployment@4
-  inputs:
-    ConnectionType: 'AzureRM'
-    appType: 'webApp'
-    WebAppName: 
-    packageForLinux: 'D:/BlazorProject/eastcostit/WebApp.zip'
