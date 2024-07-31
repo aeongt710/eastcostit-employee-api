@@ -48,9 +48,9 @@ steps:
     publishWebProjects: true
     arguments: '--configuration $(BuildConfiguration) --output $(build.artifactstagingdirectory)'
 - task: AzureWebApp@1
+  displayName: Azure Web App Deploy
   inputs:
     azureSubscription: 'Azure subscription 1(4fa89b6b-81d0-4523-a547-0e5abce06c0f)'
     appType: 'webApp'
     appName: 'webapidemo9111'
-    package: '$(System.DefaultWorkingDirectory)/**/ApiApp.zip'
-    deploymentMethod: 'auto'
+    package: $(Build.ArtifactStagingDirectory)/**/ApiApp.zip
