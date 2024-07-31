@@ -54,3 +54,5 @@ steps:
     appType: 'webApp'
     WebAppName: 'webapidemo9111'
     packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
+    enableCustomDeployment: true
+    DeploymentType: 'webDeploy'
