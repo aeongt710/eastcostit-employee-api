@@ -24,33 +24,19 @@ steps:
 - task: VSBuild@1
   inputs:
     solution: '$(solution)'
-    msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:DesktopBuildPackageLocation="$(build.artifactStagingDirectory)\ApiApp.zip" /p:DeployIisAppPath="Default Web Site"'
+    msbuildArgs: /p:DeployOnBuild=true /p:DeployDefaultTarget=WebPublish /p:WebPublishMethod=FileSystem /p:publishUrl="$(Agent.TempDirectory)\WebAppContent\\"
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
 
-# - task: VSTest@2
-#   inputs:
-#     platform: '$(buildPlatform)'
-#     configuration: '$(buildConfiguration)'
-- task: PublishBuildArtifacts@1
+- task: ArchiveFiles@2
+  displayName: Archive Files
   inputs:
-    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-    ArtifactName: 'drop'
-    publishLocation: 'Container'
-- task: DotNetCoreCLI@2
-  inputs:
-    command: 'build'
-    projects: '**/*.csproj'
-    arguments: '--configuration $(BuidConfiguration)'
-- task: DotNetCoreCLI@2
-  inputs:
-    command: 'publish'
-    publishWebProjects: true
-    arguments: '--configuration $(BuildConfiguration) --output $(build.artifactstagingdirectory)'
+      rootFolderOrFile: $(Agent.TempDirectory)\WebAppContent
+      includeRootFolder: false
 - task: AzureWebApp@1
-  displayName: Azure Web App Deploy
   inputs:
     azureSubscription: 'Azure subscription 1(4fa89b6b-81d0-4523-a547-0e5abce06c0f)'
     appType: 'webApp'
     appName: 'webapidemo9111'
-    package: $(Build.ArtifactStagingDirectory)/**/ApiApp.zip
+    package: '$(build.artifactstagingdirectory)/**/*.zip'
+    deploymentMethod: 'auto'
