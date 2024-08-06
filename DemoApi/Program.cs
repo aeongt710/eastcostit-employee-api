@@ -15,6 +15,16 @@ builder.Services.AddDbContext<DemoDbContext>(options =>
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("Development", b =>
+    {
+        b.AllowAnyHeader();
+        b.AllowAnyMethod();
+        b.AllowAnyOrigin();
+    });
+});
+
 
 builder.Services.AddTransient<DatabaseConnection>();
 builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
@@ -22,8 +32,18 @@ builder.Services.AddScoped<IPrivateEmployeeRepository, PrivateEmployeeRepository
 
 var app = builder.Build();
 
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    var context = services.GetRequiredService<DemoDbContext>();
+    context.Database.Migrate();
+}
+
+
+
+app.UseCors("Development");
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+//if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
