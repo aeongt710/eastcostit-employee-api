@@ -1,7 +1,9 @@
 using DemoApi.Data;
+using DemoApi.DataSeeding;
 using DemoApi.IRepository;
 using DemoApi.Repository;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -28,6 +30,7 @@ builder.Services.AddCors(options =>
 
 builder.Services.AddTransient<DatabaseConnection>();
 builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
+builder.Services.AddScoped<IGenderRepository, GenderRepository>();
 builder.Services.AddScoped<IPrivateEmployeeRepository, PrivateEmployeeRepository>();
 
 var app = builder.Build();
@@ -37,6 +40,8 @@ using (var scope = app.Services.CreateScope())
     var services = scope.ServiceProvider;
     var context = services.GetRequiredService<DemoDbContext>();
     context.Database.Migrate();
+    var genderSeedManager = new SeedManager(context);
+    genderSeedManager.Seed();
 }
 
 

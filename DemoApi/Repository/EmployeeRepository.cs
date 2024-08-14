@@ -30,12 +30,12 @@ namespace DemoApi.Repository
 
         public async Task<IEnumerable<Employee>> GetAllEmployees()
         {
-            return await _context.Employees.ToListAsync();
+            return await _context.Employees.Include(a => a.EmployeeGender).ToListAsync();
         }
 
         public async Task<Employee?> GetEmployeeById(int? empId)
         {
-            return await _context.Employees.Where(x => x.ID == empId).FirstOrDefaultAsync();
+            return await _context.Employees.Include(a=>a.EmployeeGender).Where(x => x.ID == empId).FirstOrDefaultAsync();
         }
 
         public async Task<Employee> SaveEmployee(Employee emp)
@@ -56,7 +56,7 @@ namespace DemoApi.Repository
 
             existingEmployee.FirstName = emp.FirstName;
             existingEmployee.LastName = emp.LastName;
-            existingEmployee.Gender = emp.Gender;
+            existingEmployee.EmployeeGenderId = emp.EmployeeGenderId;
             existingEmployee.Salary = emp.Salary;
 
             _context.Employees.Update(existingEmployee);

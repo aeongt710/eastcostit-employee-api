@@ -15,6 +15,7 @@ namespace DemoApi.Data
         }
 
         public virtual DbSet<Employee> Employees { get; set; }
+        public virtual DbSet<Gender> Genders { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
         }
