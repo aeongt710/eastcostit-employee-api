@@ -31,6 +31,7 @@ builder.Services.AddCors(options =>
 builder.Services.AddTransient<DatabaseConnection>();
 builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
 builder.Services.AddScoped<IGenderRepository, GenderRepository>();
+builder.Services.AddScoped<ITlmAppRepository, TlmAppRepository>();
 builder.Services.AddScoped<IPrivateEmployeeRepository, PrivateEmployeeRepository>();
 
 var app = builder.Build();

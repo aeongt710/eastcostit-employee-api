@@ -16,6 +16,7 @@ namespace DemoApi.Data
 
         public virtual DbSet<Employee> Employees { get; set; }
         public virtual DbSet<Gender> Genders { get; set; }
+        public virtual DbSet<TlmApp> TlmApps { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
         }
